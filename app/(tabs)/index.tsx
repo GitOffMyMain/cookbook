@@ -1,11 +1,37 @@
-import { Text, View, TextInput } from "react-native";
+import { Text, View, ScrollView, TextInput } from "react-native";
 import RecipeCard from "@/components/RecipeCard";
+import type { Recipe } from "@/types/Recipe";
 
 export default function HomeScreen() {
+    const recipes: Recipe[] = [
+         {
+            dishName: "Coconut Chicken Rice",
+            cuisine: "Ugandan",
+            spiceLevel: 3,
+            cookingTime: 45,
+        },
+
+        {
+            dishName: "Coconut chicken soup",
+            cuisine: "Ugandan",
+            spiceLevel: 0,
+            cookingTime: 15,
+        },
+
+        {
+            dishName: "Udon",
+            cuisine: "Asian",
+            spiceLevel: 2,
+            cookingTime: 20,
+        }
+    ]
+
     return (
-        <View
+        <ScrollView
             style={{
                 flex: 1,
+            }}
+            contentContainerStyle={{
                 padding: 20
             }}
         >
@@ -35,7 +61,7 @@ export default function HomeScreen() {
             <Text
                 style={{
                     fontSize: 22,
-                    fontWeight: 600,
+                    fontWeight: "600",
                     marginBottom: 12,
                 }}
             >
@@ -43,24 +69,39 @@ export default function HomeScreen() {
             </Text>
 
             {/* Start Ideas for you Card */}
-            <RecipeCard
-                dishName="Coconut Chicken Rice"
-                cuisine="Ugandan"
-                spiceLevel={3}
-                cookingTime={45}
-            />
+            <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+            >
+                {recipes.map((recipe) => (
+                    <View
+                        key={recipe.dishName}
+                        style={{
+                            marginRight: 16
+                        }}
+                    >
+                        <RecipeCard
+                            dishName={recipe.dishName}
+                            cuisine={recipe.cuisine}
+                            spiceLevel={recipe.spiceLevel}
+                            cookingTime={recipe.cookingTime}
+                            width={280}
+                        />
+                    </View>
+                ))}
+            </ScrollView>
             {/* End Ideas for you Card */}
 
             <Text
                 style={{
                     fontSize: 22,
-                    fontWeight: 600,
+                    fontWeight: "600",
                     marginTop: 28,
                     marginBottom: 12,
                 }}
             >
                 Recently added
             </Text>
-        </View>
+        </ScrollView>
     );
 }

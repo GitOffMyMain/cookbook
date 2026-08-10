@@ -7,9 +7,10 @@ type RecipeCardProps = {
     cuisine: string;
     spiceLevel: 0 | 1 | 2 | 3 | 4 | 5;
     cookingTime: number;
+    width?: number;
 };
 
-export default function RecipeCard({ dishName, cuisine, spiceLevel, cookingTime }: RecipeCardProps ) {
+export default function RecipeCard({ dishName, cuisine, spiceLevel, cookingTime, width }: RecipeCardProps ) {
     return (
         <View
             style={{
@@ -17,6 +18,7 @@ export default function RecipeCard({ dishName, cuisine, spiceLevel, cookingTime 
                 borderColor: "#ddd",
                 borderRadius: 16,
                 padding: 14,
+                width,
             }}>
 
             <View
