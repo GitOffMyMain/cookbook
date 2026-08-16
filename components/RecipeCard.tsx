@@ -1,18 +1,22 @@
-import { View, Text } from "react-native";
-import SpiceLevel from "@/components/SpiceLevel";
+import {View, Text, Pressable} from "react-native";
+
+import RecipeMetadata from "@/components/RecipeMetadata";
+import type { SpiceLevelValue } from "@/types/SpiceLevel";
 
 
 type RecipeCardProps = {
+    onPress?: () => void;
     dishName: string;
     cuisine: string;
-    spiceLevel: 0 | 1 | 2 | 3 | 4 | 5;
+    spiceLevel: SpiceLevelValue;
     cookingTime: number;
     width?: number;
 };
 
-export default function RecipeCard({ dishName, cuisine, spiceLevel, cookingTime, width }: RecipeCardProps ) {
+export default function RecipeCard({onPress, dishName, cuisine, spiceLevel, cookingTime, width }: RecipeCardProps ) {
     return (
-        <View
+        <Pressable
+            onPress={onPress}
             style={{
                 borderWidth: 1,
                 borderColor: "#ddd",
@@ -42,24 +46,11 @@ export default function RecipeCard({ dishName, cuisine, spiceLevel, cookingTime,
                 { dishName }
             </Text>
 
-            <View
-                style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                }}>
-                <Text style={{
-                    fontSize: 14,
-                    color: "#777",
-                }}>
-                    { cuisine } ·
-                </Text>
-                <SpiceLevel selectedLevel={spiceLevel}/>
-                <Text style={{
-                    fontSize: 14,
-                    color: "#777",
-                }}> · { cookingTime } min
-                </Text>
-            </View>
-        </View>
+            <RecipeMetadata
+                cuisine={cuisine}
+                spiceLevel={spiceLevel}
+                cookingTime={cookingTime}
+            />
+        </Pressable>
     );
 }

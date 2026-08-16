@@ -1,6 +1,9 @@
+import { SpiceLevelValue } from "@/types/SpiceLevel";
+
 export type Recipe = {
+    id: number;
     dishName: string;
     cuisine: string;
-    spiceLevel: 0 | 1 | 2 | 3 | 4 | 5;
+    spiceLevel: SpiceLevelValue;
     cookingTime: number;
 };

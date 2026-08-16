@@ -1,31 +1,8 @@
 import { Text, View, ScrollView, TextInput } from "react-native";
 import RecipeCard from "@/components/RecipeCard";
-import type { Recipe } from "@/types/Recipe";
+import {recipes} from "@/data/Recipes";
 
 export default function HomeScreen() {
-    const recipes: Recipe[] = [
-         {
-            dishName: "Coconut Chicken Rice",
-            cuisine: "Ugandan",
-            spiceLevel: 3,
-            cookingTime: 45,
-        },
-
-        {
-            dishName: "Coconut chicken soup",
-            cuisine: "Ugandan",
-            spiceLevel: 0,
-            cookingTime: 15,
-        },
-
-        {
-            dishName: "Udon",
-            cuisine: "Asian",
-            spiceLevel: 2,
-            cookingTime: 20,
-        }
-    ]
-
     return (
         <ScrollView
             style={{
@@ -58,6 +35,7 @@ export default function HomeScreen() {
                 }}
             />
 
+            {/* Start Ideas for you section */}
             <Text
                 style={{
                     fontSize: 22,
@@ -68,14 +46,14 @@ export default function HomeScreen() {
                 Ideas for you
             </Text>
 
-            {/* Start Ideas for you Card */}
+            {/* Ideas for you cards */}
             <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
             >
                 {recipes.map((recipe) => (
                     <View
-                        key={recipe.dishName}
+                        key={recipe.id}
                         style={{
                             marginRight: 16
                         }}
@@ -90,8 +68,10 @@ export default function HomeScreen() {
                     </View>
                 ))}
             </ScrollView>
-            {/* End Ideas for you Card */}
+            {/* End Ideas for you section */}
 
+
+            {/* Start Recently Added section */}
             <Text
                 style={{
                     fontSize: 22,
@@ -102,6 +82,24 @@ export default function HomeScreen() {
             >
                 Recently added
             </Text>
+
+            {/* Start Recently Added Cards */}
+            {recipes.map((recipe) => (
+                <View
+                    key={recipe.id}
+                    style={{
+                        marginBottom: 16,
+                    }}
+                >
+                    <RecipeCard
+                        dishName={recipe.dishName}
+                        cuisine={recipe.cuisine}
+                        spiceLevel={recipe.spiceLevel}
+                        cookingTime={recipe.cookingTime}
+                    />
+                </View>
+            ))}
+            {/* End Recently Added section */}
         </ScrollView>
     );
 }

@@ -1,8 +1,10 @@
 import { View } from "react-native";
 import { FontAwesome6 } from "@expo/vector-icons";
 
+import type { SpiceLevelValue } from "@/types/SpiceLevel";
+
 type SpiceLevelProps = {
-    selectedLevel: 0 | 1 | 2 | 3 | 4 | 5;
+    selectedLevel: SpiceLevelValue;
 }
 
 export default function SpiceLevel( {selectedLevel}: SpiceLevelProps ) {
