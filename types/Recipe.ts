@@ -1,9 +1,18 @@
-import { SpiceLevelValue } from "@/types/SpiceLevel";
+import type { SpiceLevelValue } from "@/types/SpiceLevel";
+import type { Cuisine } from "@/types/Cuisine";
+import type { RecipeIngredient } from "@/types/RecipeIngredient";
+import type { RecipeInstruction } from "@/types/RecipeInstruction";
 
 export type Recipe = {
     id: number;
     dishName: string;
-    cuisine: string;
+    cuisines: Cuisine[];
     spiceLevel: SpiceLevelValue;
-    cookingTime: number;
+    cookingTimeMinutes: number;
+    ingredients: RecipeIngredient[];
+    instructions: RecipeInstruction[];
+    servings: number;
+    imagePath: string;
+    createdAt: Date;
+    updatedAt: Date;
 };
