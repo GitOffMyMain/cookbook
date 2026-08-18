@@ -1,6 +1,7 @@
 import {View, Text, ScrollView, Pressable} from "react-native";
 import {Image} from "expo-image";
 import { router, useLocalSearchParams } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 import RecipeMetadata from "@/components/RecipeMetadata";
 import {recipes} from "@/data/Recipes";
@@ -42,10 +43,12 @@ export default function RecipeDetails() {
             </View>
 
             <ScrollView
-                style={{ flex: 1 }}
+                style={{
+                    flex: 1,
+                    marginBottom: 15
+                }}
                 contentContainerStyle={{
                     paddingHorizontal: 20,
-                    paddingBottom: 40
             }}>
                 <Text
                     style={{
@@ -194,16 +197,19 @@ export default function RecipeDetails() {
             </ScrollView>
 
             <Pressable
+                accessibilityLabel="Back"
                 onPress={() => router.back()}
                 style={{
-                    padding: 10,
-                    borderWidth: 2,
-                    borderRadius: 10,
-                    marginHorizontal: 20
-            }}>
-                <Text>
-                    Back
-                </Text>
+                    alignItems: "center",
+                    marginHorizontal: 20,
+                    marginBottom: 20,
+                    paddingVertical: 10,
+                    borderRadius: 999,
+                    borderWidth: 1,
+                    backgroundColor: "#e8e8e8"
+                }}
+            >
+                <Ionicons name="chevron-back" size={20} />
             </Pressable>
         </View>
     )
