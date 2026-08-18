@@ -7,7 +7,7 @@ import RecipeCard from "@/components/RecipeCard";
 export default function RecipesScreen() {
     const cuisineFilters = ["All", ...cuisineOptions]
     const [selectedCuisine, setSelectedCuisine] = useState("All");
-    const filteredRecipes = recipes.filter(recipe => selectedCuisine === "All" || selectedCuisine === recipe.cuisine);
+    const filteredRecipes = recipes.filter(recipe => selectedCuisine === "All" || recipe.cuisines.some(cuisine => cuisine.name === selectedCuisine));
 
     return (
         <ScrollView
@@ -61,9 +61,9 @@ export default function RecipesScreen() {
                     <RecipeCard
                         onPress={() => router.push(`/recipe/${recipe.id}`)}
                         dishName={recipe.dishName}
-                        cuisine={recipe.cuisine}
+                        cuisines={recipe.cuisines}
                         spiceLevel={recipe.spiceLevel}
-                        cookingTime={recipe.cookingTime}
+                        cookingTimeMinutes={recipe.cookingTimeMinutes}
                     />
                 </View>
             ))}

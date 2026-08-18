@@ -2,18 +2,19 @@ import {View, Text, Pressable} from "react-native";
 
 import RecipeMetadata from "@/components/RecipeMetadata";
 import type { SpiceLevelValue } from "@/types/SpiceLevel";
+import type { Cuisine } from "@/types/Cuisine";
 
 
 type RecipeCardProps = {
     onPress?: () => void;
     dishName: string;
-    cuisine: string;
+    cuisines: Cuisine[];
     spiceLevel: SpiceLevelValue;
-    cookingTime: number;
+    cookingTimeMinutes: number;
     width?: number;
 };
 
-export default function RecipeCard({onPress, dishName, cuisine, spiceLevel, cookingTime, width }: RecipeCardProps ) {
+export default function RecipeCard({onPress, dishName, cuisines, spiceLevel, cookingTimeMinutes, width }: RecipeCardProps ) {
     return (
         <Pressable
             onPress={onPress}
@@ -47,9 +48,9 @@ export default function RecipeCard({onPress, dishName, cuisine, spiceLevel, cook
             </Text>
 
             <RecipeMetadata
-                cuisine={cuisine}
+                cuisines={cuisines}
                 spiceLevel={spiceLevel}
-                cookingTime={cookingTime}
+                cookingTimeMinutes={cookingTimeMinutes}
             />
         </Pressable>
     );

@@ -62,9 +62,9 @@ export default function HomeScreen() {
                         <RecipeCard
                             onPress={() => router.push(`/recipe/${recipe.id}`)}
                             dishName={recipe.dishName}
-                            cuisine={recipe.cuisine}
+                            cuisines={recipe.cuisines}
                             spiceLevel={recipe.spiceLevel}
-                            cookingTime={recipe.cookingTime}
+                            cookingTimeMinutes={recipe.cookingTimeMinutes}
                             width={280}
                         />
                     </View>
@@ -96,9 +96,9 @@ export default function HomeScreen() {
                     <RecipeCard
                         onPress={() => router.push(`/recipe/${recipe.id}`)}
                         dishName={recipe.dishName}
-                        cuisine={recipe.cuisine}
+                        cuisines={recipe.cuisines}
                         spiceLevel={recipe.spiceLevel}
-                        cookingTime={recipe.cookingTime}
+                        cookingTimeMinutes={recipe.cookingTimeMinutes}
                     />
                 </View>
             ))}
