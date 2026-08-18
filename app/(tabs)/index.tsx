@@ -1,6 +1,7 @@
 import { Text, View, ScrollView, TextInput } from "react-native";
+import { router } from "expo-router";
 import RecipeCard from "@/components/RecipeCard";
-import {recipes} from "@/data/Recipes";
+import { recipes } from "@/data/Recipes";
 
 export default function HomeScreen() {
     return (
@@ -59,6 +60,7 @@ export default function HomeScreen() {
                         }}
                     >
                         <RecipeCard
+                            onPress={() => router.push(`/recipe/${recipe.id}`)}
                             dishName={recipe.dishName}
                             cuisine={recipe.cuisine}
                             spiceLevel={recipe.spiceLevel}
@@ -92,6 +94,7 @@ export default function HomeScreen() {
                     }}
                 >
                     <RecipeCard
+                        onPress={() => router.push(`/recipe/${recipe.id}`)}
                         dishName={recipe.dishName}
                         cuisine={recipe.cuisine}
                         spiceLevel={recipe.spiceLevel}

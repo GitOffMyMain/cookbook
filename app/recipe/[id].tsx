@@ -1,6 +1,6 @@
-import {View, Text, ScrollView} from "react-native";
+import {View, Text, ScrollView, Pressable} from "react-native";
 import {Image} from "expo-image";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 
 import RecipeMetadata from "@/components/RecipeMetadata";
 import {recipes} from "@/data/Recipes";
@@ -192,6 +192,19 @@ export default function RecipeDetails() {
                     Taste and adjust salt if needed.
                 </Text>
             </ScrollView>
+
+            <Pressable
+                onPress={() => router.back()}
+                style={{
+                    padding: 10,
+                    borderWidth: 2,
+                    borderRadius: 10,
+                    marginHorizontal: 20
+            }}>
+                <Text>
+                    Back
+                </Text>
+            </Pressable>
         </View>
     )
 }
