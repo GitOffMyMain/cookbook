@@ -36,9 +36,9 @@ export default function RecipeDetails() {
                     {recipe.dishName}
                 </Text>
                 <RecipeMetadata
-                    cuisine={recipe.cuisine}
+                    cuisines={recipe.cuisines}
                     spiceLevel={recipe.spiceLevel}
-                    cookingTime={recipe.cookingTime}
+                    cookingTimeMinutes={recipe.cookingTimeMinutes}
                 />
             </View>
 

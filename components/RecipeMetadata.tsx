@@ -1,15 +1,17 @@
 import { View, Text } from "react-native";
 
 import SpiceLevel from "@/components/SpiceLevel";
+import formatCookingTime from "@/utils/formatCookingTime";
 import type { SpiceLevelValue } from "@/types/SpiceLevel";
+import type { Cuisine } from "@/types/Cuisine";
 
 type RecipeMetadataProps = {
-    cuisine: string;
+    cuisines: Cuisine[];
     spiceLevel: SpiceLevelValue;
-    cookingTime: number;
+    cookingTimeMinutes: number;
 }
 
-export default function RecipeMetadata({ cuisine, spiceLevel, cookingTime }: RecipeMetadataProps) {
+export default function RecipeMetadata({ cuisines, spiceLevel, cookingTimeMinutes }: RecipeMetadataProps) {
     return (
         <View
             style={{
@@ -21,13 +23,13 @@ export default function RecipeMetadata({ cuisine, spiceLevel, cookingTime }: Rec
                 fontSize: 14,
                 color: "#777",
             }}>
-                { cuisine } ·
+                { cuisines.map((cuisine) => cuisine.name).join(" · ") } ·
             </Text>
             <SpiceLevel selectedLevel={spiceLevel}/>
             <Text style={{
                 fontSize: 14,
                 color: "#777",
-            }}> · { cookingTime } min
+            }}> · { formatCookingTime(cookingTimeMinutes) }
             </Text>
         </View>
     )
