@@ -13,24 +13,13 @@ type RecipeMetadataProps = {
 
 export default function RecipeMetadata({ cuisines, spiceLevel, cookingTimeMinutes }: RecipeMetadataProps) {
     return (
-        <View
-            style={{
-                flexDirection: "row",
-                alignItems: "center",
-            }}
-        >
-            <Text style={{
-                fontSize: 14,
-                color: "#777",
-            }}>
-                { cuisines.map((cuisine) => cuisine.name).join(" · ") } ·
+        <View>
+            <Text style={{ fontSize: 14, color: "#777", marginBottom: 6 }}>
+                { cuisines.map((cuisine) => cuisine.name).join(" · ") }
+                { " · " }
+                { formatCookingTime(cookingTimeMinutes) }
             </Text>
             <SpiceLevel selectedLevel={spiceLevel}/>
-            <Text style={{
-                fontSize: 14,
-                color: "#777",
-            }}> · { formatCookingTime(cookingTimeMinutes) }
-            </Text>
         </View>
     )
 }
