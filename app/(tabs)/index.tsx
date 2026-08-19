@@ -8,18 +8,12 @@ import { recipes } from "@/data/Recipes";
 export default function HomeScreen() {
     return (
         <SafeAreaView
-            style={{
-                flex: 1,
-            }}
-            edges={["top"]}
+            style={{ flex: 1 }}
+            edges={[ "top" ]}
         >
             <ScrollView
-                style={{
-                    flex: 1,
-                }}
-                contentContainerStyle={{
-                    paddingHorizontal: 20,
-                }}
+                style={{ flex: 1 }}
+                contentContainerStyle={{ paddingHorizontal: 20 }}
             >
                 <Text
                     style={{

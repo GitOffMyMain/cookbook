@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import { recipes, cuisineOptions } from "@/data/Recipes";
 import RecipeCard from "@/components/RecipeCard";
 import {SafeAreaView} from "react-native-safe-area-context";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function RecipesScreen() {
     const cuisineFilters = ["All", ...cuisineOptions]
@@ -11,7 +12,7 @@ export default function RecipesScreen() {
     const filteredRecipes = recipes.filter(recipe => selectedCuisine === "All" || recipe.cuisines.some(cuisine => cuisine.name === selectedCuisine));
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
             <ScrollView
                 style={{
                     flex: 1,
@@ -33,7 +34,7 @@ export default function RecipesScreen() {
                 <ScrollView
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    style={{marginBottom: 8}}
+                    style={{ marginBottom: 16 }}
                 >
                     {cuisineFilters.map((cuisine) => (
                         <Pressable
@@ -58,7 +59,9 @@ export default function RecipesScreen() {
                 {filteredRecipes.map((recipe) => (
                     <View
                         key={recipe.id}
-                        style={{marginVertical: 8}}
+                        style={{
+                            marginBottom: 16
+                        }}
                     >
                         <RecipeCard
                             onPress={() => router.push(`/recipe/${recipe.id}`)}
@@ -71,6 +74,20 @@ export default function RecipesScreen() {
                 ))}
                 {/* END - Display filtered recipes */}
             </ScrollView>
+            <Pressable
+                onPress={() => router.push("/recipe/add")}
+                style={{
+                    position: "absolute",
+                    right: 20,
+                    bottom: 20,
+                    borderWidth: 1,
+                    borderRadius: 10,
+                    padding: 15,
+                    backgroundColor: "cyan"
+                }}
+            >
+                <Ionicons name="add" size={28} color="black" />
+            </Pressable>
         </SafeAreaView>
     );
 }

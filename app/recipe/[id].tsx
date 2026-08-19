@@ -1,10 +1,10 @@
-import {View, Text, ScrollView, Pressable} from "react-native";
+import {View, Text, ScrollView } from "react-native";
 import {Image} from "expo-image";
-import { router, useLocalSearchParams } from "expo-router";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { useLocalSearchParams } from "expo-router";
 
 import RecipeMetadata from "@/components/RecipeMetadata";
 import {recipes} from "@/data/Recipes";
+import BackButton from "@/components/BackButton";
 
 export default function RecipeDetails() {
     const { id } = useLocalSearchParams();
@@ -104,21 +104,7 @@ export default function RecipeDetails() {
                 ))}
             </ScrollView>
 
-            <Pressable
-                accessibilityLabel="Back"
-                onPress={() => router.back()}
-                style={{
-                    alignItems: "center",
-                    marginHorizontal: 20,
-                    marginBottom: 20,
-                    paddingVertical: 10,
-                    borderRadius: 999,
-                    borderWidth: 1,
-                    backgroundColor: "#e8e8e8"
-                }}
-            >
-                <Ionicons name="chevron-back" size={20} />
-            </Pressable>
+            <BackButton />
         </View>
     )
 }
