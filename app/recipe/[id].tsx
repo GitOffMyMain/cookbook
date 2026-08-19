@@ -60,39 +60,23 @@ export default function RecipeDetails() {
                     Ingredients
                 </Text>
 
-                <Text>
-                    Rice
-                    360 g long-grain rice (≈ 2 US cups)
-                    250 ml coconut milk
-                    600 ml hot water
-                    1 bouillon cube
-                    Protein
-                    450–500 g chicken breast, cut into bite-size cubes
-                    Vegetables
-                    300 g frozen mixed vegetables
-
-                    (no need to thaw)
-
-                    Aromatics
-                    1 large onion (≈180 g), finely chopped
-                    1½ tablespoons garlic + ginger puree
-                    Flavor Base
-                    1 tablespoon tomato paste
-                    1 tablespoon gochujang (use 2 if you want it very spicy)
-                    Spices
-                    1 teaspoon curry powder
-                    ½ teaspoon turmeric
-                    ½ teaspoon cumin
-                    ½ teaspoon coriander powder
-                    1 teaspoon paprika
-                    ½ teaspoon black pepper
-
-                    (do not add extra salt yet — bouillon + gochujang are salty)
-
-                    Finish
-                    Juice of ½ lime
-                    Optional: fresh cilantro
-                </Text>
+                {recipe.ingredients.map((ingredient) => (
+                    <Text
+                        key={ ingredient.id }
+                        style={{
+                            fontSize: 14,
+                            marginBottom: 2
+                        }}
+                    >
+                        {"• "}
+                        <Text style={{ fontWeight: "600" }}>
+                            { ingredient.quantity !== undefined ? ingredient.quantity : "" }
+                            { ingredient.unit !== undefined ? ingredient.unit : "" }
+                        </Text>
+                        { ingredient.unit !== undefined ? " " : "" }
+                        { ingredient.name }
+                    </Text>
+                ))}
 
                 <Text
                     style={{
@@ -104,96 +88,20 @@ export default function RecipeDetails() {
                     Instructions
                 </Text>
 
-                <Text>
-                    🔪 Step 1 — Prep
-                    Rinse 360 g rice under cold water until water runs mostly clear.
-                    Dissolve 1 bouillon cube in 600 ml hot water.
-                    Chop onion.
-                    Cut chicken into cubes.
-                    🔥 Step 2 — Build the Flavor Base
-
-                    Use a wide pot or deep pan.
-
-                    Heat 2 tablespoons neutral oil over medium heat.
-
-                    Add chopped onion and cook 4–5 minutes until soft and lightly golden.
-
-                    Add garlic + ginger puree and cook 30 seconds.
-
-                    Add tomato paste and cook 1 minute until darker red.
-
-                    Add all the dry spices and stir 30 seconds to bloom the spices.
-
-                    🍗 Step 3 — Cook the Chicken
-
-                    Add cubed chicken.
-
-                    Cook 3–4 minutes, stirring occasionally, until the outside turns white/lightly browned.
-
-                    It does not need to be fully cooked yet.
-
-                    🥥 Step 4 — Add Liquids
-
-                    Add:
-
-                    250 ml coconut milk
-                    600 ml bouillon broth
-                    1 tablespoon gochujang
-                    300 g frozen vegetables
-
-                    Stir well.
-
-                    Bring to a gentle simmer and cook 5–8 minutes.
-
-                    Taste the broth.
-
-                    It should taste:
-
-                    slightly strong
-                    slightly salty
-                    slightly spicy
-
-                    The rice will absorb and balance it.
-
-                    🍚 Step 5 — Add Rice
-
-                    Add the rinsed rice directly into the pot.
-
-                    Stir once so the rice spreads evenly.
-
-                    🔥 Step 6 — Cook the Rice
-
-                    Bring everything to a gentle boil.
-
-                    Once bubbling across the surface:
-
-                    Reduce heat to LOW
-                    Cover with lid
-                    Cook 15 minutes
-
-                    Do not stir while it cooks.
-
-                    ⏳ Step 7 — Steam Finish
-
-                    After 15 minutes:
-
-                    Turn off heat
-                    Leave lid on
-                    Let rest 10 minutes
-
-                    This finishes steaming the rice.
-
-                    🍽 Step 8 — Finish
-
-                    Open lid and fluff rice gently with a spoon.
-
-                    Add:
-
-                    juice of ½ lime
-                    optional cilantro
-
-                    Taste and adjust salt if needed.
-                </Text>
+                {recipe.instructions.map((instruction) => (
+                    <Text
+                        key={instruction.id}
+                        style={{
+                            fontSize: 14,
+                            marginBottom: 6
+                        }}
+                    >
+                        <Text style={{ fontWeight: "600" }}>
+                            {instruction.position}. { " " }
+                        </Text>
+                        {instruction.details}
+                    </Text>
+                ))}
             </ScrollView>
 
             <Pressable
