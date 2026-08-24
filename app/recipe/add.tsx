@@ -1,10 +1,11 @@
-import { ScrollView, Text, TextInput, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import { router } from "expo-router";
 
 import CustomMenuBar from "@/components/CustomMenuBar";
 import IconLabelButton from "@/components/IconLabelButton";
+import FormTextInput from "@/components/FormTextInput";
 
 export default function AddRecipe() {
     const [ recipeName, setRecipeName ] = useState("");
@@ -52,18 +53,12 @@ export default function AddRecipe() {
                     Add new recipe
                 </Text>
 
-                <TextInput
+                <FormTextInput
                     placeholder="Recipe name"
-                    placeholderTextColor="#888"
                     value={recipeName}
                     onChangeText={setRecipeName}
+                    hasError={submitted && !isRecipeNameValid}
                     style={{
-                        borderWidth: 1,
-                        borderColor: submitted && !isRecipeNameValid ? "#dc2626" : "#ccc",
-                        borderRadius: 12,
-                        fontSize: 16,
-                        paddingHorizontal: 14,
-                        paddingVertical: 12,
                         marginBottom: 15,
                     }}
                 />
@@ -85,37 +80,26 @@ export default function AddRecipe() {
                             flexDirection: "row",
                         }}
                     >
-                        <TextInput
+                        <FormTextInput
                             keyboardType="number-pad"
                             placeholder="Hours"
-                            placeholderTextColor="#888"
                             value={hours}
                             onChangeText={setHours}
+                            hasError={submitted && (!isHoursValid || !isCookingTimeOverZero)}
                             style={{
                                 flex: 1,
-                                borderWidth: 1,
-                                borderColor: submitted && (!isHoursValid || !isCookingTimeOverZero) ? "#dc2626" : "#ccc",
-                                borderRadius: 12,
-                                fontSize: 16,
-                                paddingHorizontal: 14,
-                                paddingVertical: 12,
                                 marginRight: 10,
                             }}
                         />
-                        <TextInput
+
+                        <FormTextInput
                             keyboardType="number-pad"
                             placeholder="Minutes"
-                            placeholderTextColor="#888"
                             value={minutes}
                             onChangeText={setMinutes}
+                            hasError={submitted && (!isMinutesValid || !isCookingTimeOverZero)}
                             style={{
                                 flex: 1,
-                                borderWidth: 1,
-                                borderColor: submitted && (!isMinutesValid || !isCookingTimeOverZero) ? "#dc2626" : "#ccc",
-                                borderRadius: 12,
-                                fontSize: 16,
-                                paddingHorizontal: 14,
-                                paddingVertical: 12,
                             }}
                         />
                     </View>
@@ -131,21 +115,13 @@ export default function AddRecipe() {
                     >
                         Servings
                     </Text>
-                    <TextInput
-                        keyboardType="numeric"
+
+                    <FormTextInput
+                        keyboardType="number-pad"
                         placeholder="Number of servings"
-                        placeholderTextColor="#888"
                         value={servings}
                         onChangeText={setServings}
-                        style={{
-                            flex: 1,
-                            borderWidth: 1,
-                            borderColor: submitted && !isServingsValid ? "#dc2626" : "#ccc",
-                            borderRadius: 12,
-                            fontSize: 16,
-                            paddingHorizontal: 14,
-                            paddingVertical: 12,
-                        }}
+                        hasError={submitted && !isServingsValid}
                     />
                 </View>
 
