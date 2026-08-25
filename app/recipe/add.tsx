@@ -6,6 +6,8 @@ import { router } from "expo-router";
 import CustomMenuBar from "@/components/CustomMenuBar";
 import IconLabelButton from "@/components/IconLabelButton";
 import FormTextInput from "@/components/FormTextInput";
+import SpiceLevel from "@/components/SpiceLevel";
+import {SpiceLevelValue} from "@/types/SpiceLevel";
 
 export default function AddRecipe() {
     const [ recipeName, setRecipeName ] = useState("");
@@ -13,6 +15,7 @@ export default function AddRecipe() {
     const [ minutes, setMinutes ] = useState("");
     const [ submitted, setSubmitted ] = useState(false);
     const [ servings, setServings ] = useState("");
+    const [ spiceLevel, setSpiceLevel ] = useState<SpiceLevelValue>(0);
 
     const parsedHours = hours === "" ? 0 : Number(hours);
     const parsedMinutes = minutes === "" ? 0 : Number(minutes);
@@ -31,8 +34,6 @@ export default function AddRecipe() {
         if (!isRecipeNameValid || !isCookingTimeValid || !isServingsValid) {
             return;
         }
-
-
     }
 
     return (
@@ -43,6 +44,7 @@ export default function AddRecipe() {
             <ScrollView
                 contentContainerStyle={{ padding: 10 }}
             >
+                { /* Page title */ }
                  <Text
                      style={{
                          fontSize: 32,
@@ -53,6 +55,7 @@ export default function AddRecipe() {
                     Add new recipe
                 </Text>
 
+                { /* Recipe name text input */ }
                 <FormTextInput
                     placeholder="Recipe name"
                     value={recipeName}
@@ -63,9 +66,11 @@ export default function AddRecipe() {
                     }}
                 />
 
+                { /* Cooking time input - contains 2 text inputs, one for hours and one for minutes */ }
                 <View
                     style={{ marginBottom: 15 }}
                 >
+                    { /* Cooking time: section title */ }
                     <Text
                         style={{
                             fontSize: 16,
@@ -80,6 +85,7 @@ export default function AddRecipe() {
                             flexDirection: "row",
                         }}
                     >
+                        { /* Cooking time: hours text input */ }
                         <FormTextInput
                             keyboardType="number-pad"
                             placeholder="Hours"
@@ -92,6 +98,7 @@ export default function AddRecipe() {
                             }}
                         />
 
+                        { /* Cooking time: minutes text input */ }
                         <FormTextInput
                             keyboardType="number-pad"
                             placeholder="Minutes"
@@ -105,6 +112,7 @@ export default function AddRecipe() {
                     </View>
                 </View>
 
+                { /* Number of servings input */ }
                 <View style={{ marginBottom: 15 }}>
                     <Text
                         style={{
@@ -125,6 +133,23 @@ export default function AddRecipe() {
                     />
                 </View>
 
+                { /* Set spice level */ }
+                <View>
+                    <Text
+                        style={{
+                            fontSize: 16,
+                            fontWeight: "bold",
+                            marginBottom: 5,
+                        }}
+                    >
+                        Spice level
+                    </Text>
+                    <SpiceLevel
+                        selectedLevel={spiceLevel}
+                        onChange={setSpiceLevel}
+                    />
+                </View>
+                { /*  */ }
             </ScrollView>
 
             <CustomMenuBar>
