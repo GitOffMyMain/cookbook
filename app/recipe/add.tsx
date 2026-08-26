@@ -134,7 +134,7 @@ export default function AddRecipe() {
                 </View>
 
                 { /* Set spice level */ }
-                <View>
+                <View style={{ marginBottom: 15 }}>
                     <Text
                         style={{
                             fontSize: 16,
@@ -146,6 +146,7 @@ export default function AddRecipe() {
                     </Text>
                     <SpiceLevel
                         selectedLevel={spiceLevel}
+                        iconSize={24}
                         onChange={setSpiceLevel}
                     />
                 </View>
