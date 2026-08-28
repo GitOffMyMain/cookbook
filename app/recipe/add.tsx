@@ -1,40 +1,16 @@
 import { ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useState } from "react";
 import { router } from "expo-router";
 
 import CustomMenuBar from "@/components/CustomMenuBar";
 import IconLabelButton from "@/components/IconLabelButton";
 import FormTextInput from "@/components/FormTextInput";
 import SpiceLevel from "@/components/SpiceLevel";
-import {SpiceLevelValue} from "@/types/SpiceLevel";
+
+import useAddRecipeForm from "@/hooks/useAddRecipeForm";
 
 export default function AddRecipe() {
-    const [ recipeName, setRecipeName ] = useState("");
-    const [ hours, setHours ] = useState("");
-    const [ minutes, setMinutes ] = useState("");
-    const [ submitted, setSubmitted ] = useState(false);
-    const [ servings, setServings ] = useState("");
-    const [ spiceLevel, setSpiceLevel ] = useState<SpiceLevelValue>(0);
-
-    const parsedHours = hours === "" ? 0 : Number(hours);
-    const parsedMinutes = minutes === "" ? 0 : Number(minutes);
-    const parsedServings = Number(servings);
-
-    const isRecipeNameValid = recipeName.trim().length > 0;
-    const isHoursValid = Number.isInteger(parsedHours) && parsedHours >= 0;
-    const isMinutesValid = Number.isInteger(parsedMinutes) && parsedMinutes >= 0;
-    const isCookingTimeOverZero = parsedHours * 60 + parsedMinutes > 0;
-    const isCookingTimeValid = isHoursValid && isMinutesValid && isCookingTimeOverZero;
-    const isServingsValid = Number.isInteger(parsedServings) && parsedServings > 0;
-
-    function handleSubmit() {
-        setSubmitted(true);
-
-        if (!isRecipeNameValid || !isCookingTimeValid || !isServingsValid) {
-            return;
-        }
-    }
+    const form = useAddRecipeForm();
 
     return (
         <SafeAreaView
@@ -58,9 +34,9 @@ export default function AddRecipe() {
                 { /* Recipe name text input */ }
                 <FormTextInput
                     placeholder="Recipe name"
-                    value={recipeName}
-                    onChangeText={setRecipeName}
-                    hasError={submitted && !isRecipeNameValid}
+                    value={form.recipeName}
+                    onChangeText={form.setRecipeName}
+                    hasError={form.submitted && !form.isRecipeNameValid}
                     style={{
                         marginBottom: 15,
                     }}
@@ -89,9 +65,9 @@ export default function AddRecipe() {
                         <FormTextInput
                             keyboardType="number-pad"
                             placeholder="Hours"
-                            value={hours}
-                            onChangeText={setHours}
-                            hasError={submitted && (!isHoursValid || !isCookingTimeOverZero)}
+                            value={form.hours}
+                            onChangeText={form.setHours}
+                            hasError={form.submitted && (!form.isHoursValid || !form.isCookingTimeOverZero)}
                             style={{
                                 flex: 1,
                                 marginRight: 10,
@@ -102,9 +78,9 @@ export default function AddRecipe() {
                         <FormTextInput
                             keyboardType="number-pad"
                             placeholder="Minutes"
-                            value={minutes}
-                            onChangeText={setMinutes}
-                            hasError={submitted && (!isMinutesValid || !isCookingTimeOverZero)}
+                            value={form.minutes}
+                            onChangeText={form.setMinutes}
+                            hasError={form.submitted && (!form.isMinutesValid || !form.isCookingTimeOverZero)}
                             style={{
                                 flex: 1,
                             }}
@@ -127,9 +103,9 @@ export default function AddRecipe() {
                     <FormTextInput
                         keyboardType="number-pad"
                         placeholder="Number of servings"
-                        value={servings}
-                        onChangeText={setServings}
-                        hasError={submitted && !isServingsValid}
+                        value={form.servings}
+                        onChangeText={form.setServings}
+                        hasError={form.submitted && !form.isServingsValid}
                     />
                 </View>
 
@@ -145,9 +121,9 @@ export default function AddRecipe() {
                         Spice level
                     </Text>
                     <SpiceLevel
-                        selectedLevel={spiceLevel}
+                        selectedLevel={form.spiceLevel}
                         iconSize={24}
-                        onChange={setSpiceLevel}
+                        onChange={form.setSpiceLevel}
                     />
                 </View>
                 { /*  */ }
@@ -165,7 +141,7 @@ export default function AddRecipe() {
                     label="Save"
                     iconName="save"
                     color="#007AFF"
-                    onPress={handleSubmit}
+                    onPress={form.handleSubmit}
                     style={{ flex: 1 }}
                 />
             </CustomMenuBar>
