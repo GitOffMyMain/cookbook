@@ -1,5 +1,6 @@
-import {Pressable, View} from "react-native";
+import { Pressable, View, PanResponder } from "react-native";
 import { FontAwesome6 } from "@expo/vector-icons";
+import { useRef } from "react";
 
 import type { SpiceLevelValue } from "@/types/SpiceLevel";
 
@@ -11,11 +12,24 @@ type SpiceLevelProps = {
 
 export default function SpiceLevel( {selectedLevel, iconSize, onChange}: SpiceLevelProps ) {
     const possibleLevels: SpiceLevelValue[] = [1, 2, 3, 4, 5];
+    const pepperRowWidth = useRef(0);
+
+    const panResponder = PanResponder.create({
+        onStartShouldSetPanResponder: () => onChange !== undefined,
+    });
 
     return (
-        <View style={{
-            flexDirection: "row",
-        }}>
+        <View
+            { ...panResponder.panHandlers }
+            style={{
+                flexDirection: "row",
+            }}
+            onLayout={
+                (event) => {
+                    pepperRowWidth.current = event.nativeEvent.layout.width;
+                }
+            }
+        >
             { possibleLevels.map((lvl) => (
                 <Pressable
                     key={lvl}

@@ -29,6 +29,15 @@ export default function useAddRecipeForm() {
         }
     }
 
+    function handleSpiceLevelChange(level: SpiceLevelValue) {
+        if (level === spiceLevel) {
+            setSpiceLevel(0);
+            return;
+        }
+
+        setSpiceLevel(level);
+    }
+
     return {
         recipeName,
         setRecipeName,
@@ -50,7 +59,8 @@ export default function useAddRecipeForm() {
         isCookingTimeValid,
         isServingsValid,
 
-        handleSubmit
+        handleSubmit,
+        handleSpiceLevelChange,
     }
 }
 
