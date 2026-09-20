@@ -20,6 +20,7 @@ export default function IconLabelButton({
     return (
         <Pressable
             onPress={onPress}
+            hitSlop={8}
             style={[
                 {
                     alignItems: "center",

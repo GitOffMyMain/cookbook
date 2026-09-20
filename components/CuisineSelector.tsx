@@ -46,12 +46,14 @@ export default function CuisineSelector({
     const modalHeight = isLandscape ? height * 0.5 : height * 0.35;
 
     const filteredCuisines = cuisines.filter((cuisine) =>
-        cuisine.name.toLowerCase().startsWith(searchText.toLowerCase())
+        cuisine.name.toLowerCase().startsWith(searchText.trim().toLowerCase())
     );
 
-    const cuisineAlreadyExists = cuisines.some((cuisine) =>
-        cuisine.name.toLowerCase() === searchText.trim().toLowerCase()
-    );
+    function handleModalClose() {
+        setIsEditing(false);
+        setIsOpen(false);
+        onSearchTextChange("");
+    }
 
     return (
         <>
@@ -119,6 +121,7 @@ export default function CuisineSelector({
                 visible={isOpen}
                 animationType="slide"
                 transparent={true}
+                onRequestClose={handleModalClose}
             >
                 { /* Gray background overlay */ }
                 <KeyboardAvoidingView
@@ -164,12 +167,42 @@ export default function CuisineSelector({
                                     style={{ flex: 1 }}
                                 />
 
+                                { /* "Edit mode" button */ }
                                 <IconLabelButton
                                     iconName={isEditing ? "checkmark" : "create-outline"}
                                     color="#007AFF"
                                     onPress={() => setIsEditing(current => !current)}
                                 />
                             </View>
+
+                            { /* "Draft row" - adding new cuisines if don't exist in the list */ }
+                            {   !isEditing &&
+                                searchText.trim().length > 0 &&
+                                filteredCuisines.length === 0 &&
+                                (
+                                <View
+                                    style={{
+                                        minHeight: 48,
+                                        marginVertical: 2,
+                                        paddingHorizontal: 8,
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        borderRadius: 8,
+                                        backgroundColor: "#F2F2F7",
+                                    }}
+                                >
+                                    <Text style={{ fontSize: 16 }}>
+                                        {searchText.trim()}
+                                    </Text>
+
+                                    <IconLabelButton
+                                        iconName="save-outline"
+                                        color="#007AFF"
+                                        onPress={() => onAddCuisine?.(searchText.trim())}
+                                    />
+                                </View>
+                            )}
 
                             { /* Rendering the cuisines as pressable buttons */ }
                             {filteredCuisines.map((cuisine) => {
@@ -234,7 +267,7 @@ export default function CuisineSelector({
                             label="Done"
                             iconName="checkmark"
                             color="#007AFF"
-                            onPress={() => setIsOpen(false)}
+                            onPress={() => handleModalClose()}
                         />
                     </View>
                 </KeyboardAvoidingView>
