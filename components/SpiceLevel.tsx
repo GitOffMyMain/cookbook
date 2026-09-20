@@ -26,6 +26,7 @@ export default function SpiceLevel( {selectedLevel, iconSize, onPressLevel, onDr
                     Math.abs(gestureState.dy) < 40
                 );
             },
+            onPanResponderTerminationRequest: () => false,
             onPanResponderMove(_, gestureState) {
                pepperRowRef.current?.measureInWindow((x, y, width) => {
                    const relativeX = gestureState.moveX - x;
@@ -52,6 +53,7 @@ export default function SpiceLevel( {selectedLevel, iconSize, onPressLevel, onDr
             ref={pepperRowRef}
             style={{
                 flexDirection: "row",
+                alignSelf: "flex-start"
             }}
         >
             { possibleLevels.map((lvl) => (
