@@ -123,7 +123,8 @@ export default function AddRecipe() {
                     <SpiceLevel
                         selectedLevel={form.spiceLevel}
                         iconSize={24}
-                        onChange={form.handleSpiceLevelChange}
+                        onPressLevel={form.handleSpiceLevelChange}
+                        onDragLevel={form.setSpiceLevel}
                     />
                 </View>
                 { /*  */ }
