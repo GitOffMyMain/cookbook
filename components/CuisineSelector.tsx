@@ -110,16 +110,22 @@ export default function CuisineSelector({
                             minHeight: modalMaxHeight,
                         }}
                     >
-                        { /* Search input */ }
-                        <FormTextInput
-                            placeholder="Search cuisine"
-                            value={searchText}
-                            onChangeText={onSearchTextChange}
-                            style={{ marginBottom: 12 }}
-                        />
+
 
                         { /* List of cuisines */ }
-                        <ScrollView style={{ flex: 1 }}>
+                        <ScrollView
+                            style={{ flex: 1 }}
+                            keyboardShouldPersistTaps="always"
+                            keyboardDismissMode="none"
+                        >
+                            { /* Search input */ }
+                            <FormTextInput
+                                placeholder="Search cuisine"
+                                value={searchText}
+                                onChangeText={onSearchTextChange}
+                                style={{ marginBottom: 12 }}
+                            />
+
                             {filteredCuisines.map((cuisine) => {
                                 const isSelected = selectedCuisines.some(
                                     selectedCuisine => selectedCuisine.id === cuisine.id

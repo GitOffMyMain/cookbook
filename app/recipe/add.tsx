@@ -23,6 +23,7 @@ export default function AddRecipe() {
             >
                 <ScrollView
                     contentContainerStyle={{ padding: 10 }}
+                    keyboardShouldPersistTaps="always"
                 >
                     { /* Page title */ }
                     <Text
