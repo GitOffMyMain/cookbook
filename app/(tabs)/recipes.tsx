@@ -1,18 +1,33 @@
 import { View, Text, ScrollView, Pressable } from "react-native";
-import { useState} from "react";
+import { useState } from "react";
 import { router } from "expo-router";
-import { recipes, cuisineOptions } from "@/data/Recipes";
-import RecipeCard from "@/components/RecipeCard";
-import {SafeAreaView} from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+import { recipes, cuisineOptions } from "@/data/Recipes";
+import RecipeCard from "@/components/RecipeCard";
+
 export default function RecipesScreen() {
-    const cuisineFilters = ["All", ...cuisineOptions]
-    const [selectedCuisine, setSelectedCuisine] = useState("All");
-    const filteredRecipes = recipes.filter(recipe => selectedCuisine === "All" || recipe.cuisines.some(cuisine => cuisine.name === selectedCuisine));
+    const cuisineFilters = [
+        { id: 0, name: "All" },
+        ...cuisineOptions
+    ];
+
+    const [selectedCuisineId, setSelectedCuisineId] = useState(0);
+
+    const filteredRecipes = recipes.filter(
+        recipe =>
+            selectedCuisineId === 0 ||
+            recipe.cuisines.some(
+                cuisine => cuisine.id === selectedCuisineId
+            )
+    );
 
     return (
-        <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
+        <SafeAreaView
+            style={{ flex: 1 }}
+            edges={["top"]}
+        >
             <ScrollView
                 style={{
                     flex: 1,
@@ -26,7 +41,8 @@ export default function RecipesScreen() {
                         fontSize: 32,
                         fontWeight: "bold",
                         marginBottom: 20
-                    }}>
+                    }}
+                >
                     My Recipes
                 </Text>
 
@@ -38,18 +54,21 @@ export default function RecipesScreen() {
                 >
                     {cuisineFilters.map((cuisine) => (
                         <Pressable
-                            onPress={() => setSelectedCuisine(cuisine)}
-                            key={cuisine}
+                            key={cuisine.id}
+                            onPress={() => setSelectedCuisineId(cuisine.id)}
                             style={{
                                 paddingHorizontal: 15,
                                 paddingVertical: 10,
                                 marginHorizontal: 5,
                                 borderRadius: 10,
                                 borderWidth: 1,
-                                backgroundColor: cuisine === selectedCuisine ? "cyan" : "transparent"
+                                backgroundColor:
+                                    cuisine.id === selectedCuisineId
+                                        ? "cyan"
+                                        : "transparent"
                             }}
                         >
-                            <Text>{cuisine}</Text>
+                            <Text>{cuisine.name}</Text>
                         </Pressable>
                     ))}
                 </ScrollView>
@@ -74,6 +93,7 @@ export default function RecipesScreen() {
                 ))}
                 {/* END - Display filtered recipes */}
             </ScrollView>
+
             <Pressable
                 onPress={() => router.push("/recipe/add")}
                 style={{
@@ -86,7 +106,11 @@ export default function RecipesScreen() {
                     backgroundColor: "cyan"
                 }}
             >
-                <Ionicons name="add" size={28} color="black" />
+                <Ionicons
+                    name="add"
+                    size={28}
+                    color="black"
+                />
             </Pressable>
         </SafeAreaView>
     );

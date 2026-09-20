@@ -8,6 +8,7 @@ type FormTextInputProps = {
     onChangeText: (text: string) => void;
     style?: StyleProp<TextStyle>;
     hasError?: boolean;
+    onFocus?: () => void;
 }
 
 export default function FormTextInput({
@@ -16,7 +17,8 @@ export default function FormTextInput({
                         value,
                         onChangeText,
                         style,
-                        hasError
+                        hasError,
+                        onFocus
                     }: FormTextInputProps) {
     return (
         <TextInput
@@ -25,6 +27,7 @@ export default function FormTextInput({
             placeholderTextColor={"#888"}
             value={value}
             onChangeText={onChangeText}
+            onFocus={onFocus}
             style={[
                 {
                     borderWidth: 1,

@@ -272,10 +272,12 @@ export const recipes: Recipe[] = [
     }
 ];
 
-export const cuisineOptions = new Set (
-    recipes.flatMap(
-        recipe => recipe.cuisines.map(
-            cuisine => cuisine.name
-        )
-    )
+const allCuisines = recipes.flatMap(
+    recipe => recipe.cuisines
 );
+
+export const cuisineOptions = allCuisines.filter((cuisine, index) => {
+    return index === allCuisines.findIndex(
+        otherCuisine => otherCuisine.id === cuisine.id
+    )
+})

@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import type { SpiceLevelValue } from "@/types/SpiceLevel";
+import type { Cuisine } from "@/types/Cuisine";
 
 export default function useAddRecipeForm() {
     const [ recipeName, setRecipeName ] = useState("");
@@ -9,6 +10,8 @@ export default function useAddRecipeForm() {
     const [ submitted, setSubmitted ] = useState(false);
     const [ servings, setServings ] = useState("");
     const [ spiceLevel, setSpiceLevel ] = useState<SpiceLevelValue>(0);
+    const [ cuisineSearch, setCuisineSearch ] = useState("");
+    const [ selectedCuisines, setSelectedCuisines ] = useState<Cuisine[]>([]);
 
     const parsedHours = hours === "" ? 0 : Number(hours);
     const parsedMinutes = minutes === "" ? 0 : Number(minutes);
@@ -38,6 +41,15 @@ export default function useAddRecipeForm() {
         setSpiceLevel(level);
     }
 
+    function handleSelectCuisine(cuisine: Cuisine) {
+        setSelectedCuisines(current => [...current, cuisine]);
+        setCuisineSearch("");
+    }
+
+    function handleRemoveCuisine(cuisine: Cuisine) {
+        setSelectedCuisines(current => current.filter(c => c.id !== cuisine.id));
+    }
+
     return {
         recipeName,
         setRecipeName,
@@ -51,6 +63,10 @@ export default function useAddRecipeForm() {
         setServings,
         spiceLevel,
         setSpiceLevel,
+        cuisineSearch,
+        setCuisineSearch,
+        selectedCuisines,
+        setSelectedCuisines,
 
         isRecipeNameValid,
         isHoursValid,
@@ -61,6 +77,8 @@ export default function useAddRecipeForm() {
 
         handleSubmit,
         handleSpiceLevelChange,
+        handleSelectCuisine,
+        handleRemoveCuisine,
     }
 }
 

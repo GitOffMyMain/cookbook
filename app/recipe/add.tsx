@@ -6,8 +6,10 @@ import CustomMenuBar from "@/components/CustomMenuBar";
 import IconLabelButton from "@/components/IconLabelButton";
 import FormTextInput from "@/components/FormTextInput";
 import SpiceLevel from "@/components/SpiceLevel";
+import CuisineSelector from "@/components/CuisineSelector";
 
 import useAddRecipeForm from "@/hooks/useAddRecipeForm";
+import {cuisineOptions} from "@/data/Recipes";
 
 export default function AddRecipe() {
     const form = useAddRecipeForm();
@@ -90,6 +92,29 @@ export default function AddRecipe() {
                         </View>
                     </View>
 
+                    { /* Cuisine selector dropdown */ }
+                    <View style={{ marginBottom: 15 }}>
+                        <Text
+                            style={{
+                                fontSize: 16,
+                                fontWeight: "bold",
+                                marginBottom: 5,
+                            }}
+                        >
+                            Cuisine
+                        </Text>
+
+                        <CuisineSelector
+                            cuisines={cuisineOptions}
+                            selectedCuisines={form.selectedCuisines}
+                            searchText={form.cuisineSearch}
+                            onSearchTextChange={form.setCuisineSearch}
+                            onSelectCuisine={form.handleSelectCuisine}
+                            onRemoveCuisine={form.handleRemoveCuisine}
+                        />
+                    </View>
+
+
                     { /* Number of servings input */ }
                     <View style={{ marginBottom: 15 }}>
                         <Text
@@ -136,6 +161,7 @@ export default function AddRecipe() {
                             onDragLevel={form.setSpiceLevel}
                         />
                     </View>
+
                     { /*  */ }
                 </ScrollView>
 
