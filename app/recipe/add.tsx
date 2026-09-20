@@ -112,7 +112,14 @@ export default function AddRecipe() {
                     </View>
 
                     { /* Set spice level */ }
-                    <View style={{ marginBottom: 15 }}>
+                    <View
+                        style={{
+                            marginBottom: 15,
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: 12
+                        }}
+                    >
                         <Text
                             style={{
                                 fontSize: 16,
@@ -124,7 +131,7 @@ export default function AddRecipe() {
                         </Text>
                         <SpiceLevel
                             selectedLevel={form.spiceLevel}
-                            iconSize={24}
+                            iconSize={20}
                             onPressLevel={form.handleSpiceLevelChange}
                             onDragLevel={form.setSpiceLevel}
                         />
