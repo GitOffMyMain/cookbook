@@ -45,6 +45,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "db4b94f7-b1ba-453a-a962-9693a6e3e666"
+      }
+    },
+    "owner": "gitoffmymains-team"
   }
 }
