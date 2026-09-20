@@ -22,6 +22,9 @@ type CuisineSelectorProps = {
     onSearchTextChange: (text: string) => void;
     onSelectCuisine: (cuisine: Cuisine) => void;
     onRemoveCuisine: (cuisine: Cuisine) => void;
+    onAddCuisine?: (name: string) => void;
+    onEditCuisine?: (cuisine: Cuisine) => void;
+    onDeleteCuisine?: (cuisine: Cuisine) => void;
 }
 
 export default function CuisineSelector({
@@ -30,19 +33,29 @@ export default function CuisineSelector({
     searchText,
     onSearchTextChange,
     onSelectCuisine,
-    onRemoveCuisine
+    onRemoveCuisine,
+    onAddCuisine,
+    onEditCuisine,
+    onDeleteCuisine
 } : CuisineSelectorProps) {
     const [isOpen, setIsOpen] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+
     const { width, height } = useWindowDimensions();
     const isLandscape = width > height;
-    const modalMaxHeight = isLandscape ? height * 0.5 : height * 0.35;
+    const modalHeight = isLandscape ? height * 0.5 : height * 0.35;
 
     const filteredCuisines = cuisines.filter((cuisine) =>
         cuisine.name.toLowerCase().startsWith(searchText.toLowerCase())
     );
 
+    const cuisineAlreadyExists = cuisines.some((cuisine) =>
+        cuisine.name.toLowerCase() === searchText.trim().toLowerCase()
+    );
+
     return (
         <>
+            { /* Cuisine main pressable field that contains the modal and the selected cuisine pills */ }
             <Pressable
                 onPress={() => setIsOpen(true)}
                 style={{
@@ -64,6 +77,7 @@ export default function CuisineSelector({
                         flexWrap: "wrap",
                         gap: 8,
                         flex: 1,
+                        marginRight: 10,
                     }}
                 >
                     {selectedCuisines.length === 0 ? (
@@ -72,9 +86,24 @@ export default function CuisineSelector({
                         </Text>
                     ) : (
                         selectedCuisines.map((cuisine) => (
-                            <Text key={cuisine.id}>
-                                {cuisine.name}
-                            </Text>
+                            <View
+                                key={cuisine.id}
+                                style={{
+                                    backgroundColor: "#E5E5EA",
+                                    borderRadius: 999,
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 5,
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        fontSize: 14,
+                                        color: "#3A3A3C",
+                                    }}
+                                >
+                                    {cuisine.name}
+                                </Text>
+                            </View>
                         ))
                     )}
                 </View>
@@ -107,7 +136,7 @@ export default function CuisineSelector({
                             borderTopLeftRadius: 24,
                             borderTopRightRadius: 24,
                             padding: 20,
-                            minHeight: modalMaxHeight,
+                            height: modalHeight,
                         }}
                     >
 
@@ -118,14 +147,31 @@ export default function CuisineSelector({
                             keyboardShouldPersistTaps="always"
                             keyboardDismissMode="none"
                         >
-                            { /* Search input */ }
-                            <FormTextInput
-                                placeholder="Search cuisine"
-                                value={searchText}
-                                onChangeText={onSearchTextChange}
-                                style={{ marginBottom: 12 }}
-                            />
+                            { /* Search input + Edit Mode row*/ }
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    gap: 10,
+                                    marginBottom: 12
+                                }}
+                            >
+                                { /* Search input */ }
+                                <FormTextInput
+                                    placeholder="Search cuisine"
+                                    value={searchText}
+                                    onChangeText={onSearchTextChange}
+                                    style={{ flex: 1 }}
+                                />
 
+                                <IconLabelButton
+                                    iconName={isEditing ? "checkmark" : "create-outline"}
+                                    color="#007AFF"
+                                    onPress={() => setIsEditing(current => !current)}
+                                />
+                            </View>
+
+                            { /* Rendering the cuisines as pressable buttons */ }
                             {filteredCuisines.map((cuisine) => {
                                 const isSelected = selectedCuisines.some(
                                     selectedCuisine => selectedCuisine.id === cuisine.id
@@ -135,6 +181,10 @@ export default function CuisineSelector({
                                     <Pressable
                                         key={cuisine.id}
                                         onPress={() => {
+                                            if (isEditing) {
+                                                return;
+                                            }
+
                                             if (isSelected) {
                                                 onRemoveCuisine(cuisine);
                                             } else {
@@ -142,17 +192,38 @@ export default function CuisineSelector({
                                             }
                                         }}
                                         style={{
-                                            paddingVertical: 12,
+                                            minHeight: 48,
+                                            marginVertical: 2,
+                                            paddingHorizontal: 8,
                                             flexDirection: 'row',
                                             alignItems: 'center',
                                             justifyContent: 'space-between',
+                                            borderRadius: 8,
+                                            backgroundColor: isSelected ? '#F2F2F7' : 'transparent',
                                         }}
                                     >
                                         <Text style={{fontSize: 16}}>
                                             {cuisine.name}
                                         </Text>
-                                        {isSelected && (
-                                            <Ionicons name="checkmark" size={20} color="#007AFF" />
+                                        {!isEditing && isSelected && (
+                                            <Ionicons name="checkmark" size={24} color="#007AFF" />
+                                        )}
+                                        {isEditing && (
+                                            <View
+                                                style={{
+                                                    flexDirection: 'row',
+                                                    alignItems: 'center',
+                                                    gap: 8
+                                                }}
+                                            >
+                                                <Pressable onPress={() => onEditCuisine?.(cuisine)}>
+                                                    <Ionicons name="create-outline" size={24} color="#007AFF" />
+                                                </Pressable>
+
+                                                <Pressable onPress={() => onDeleteCuisine?.(cuisine)}>
+                                                    <Ionicons name="trash" size={24} color="#FF3B30" />
+                                                </Pressable>
+                                            </View>
                                         )}
                                     </Pressable>
                                 );

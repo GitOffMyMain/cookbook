@@ -3,7 +3,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import type { StyleProp, ViewStyle } from "react-native";
 
 type IconLabelButtonProps = {
-    label: string;
+    label?: string;
     iconName: keyof typeof Ionicons.glyphMap;
     color: string;
     style?: StyleProp<ViewStyle>;
@@ -34,14 +34,16 @@ export default function IconLabelButton({
                 size={24}
                 color={color}
             />
-            <Text
-                style={{
-                    fontSize: 14,
-                    color
-                }}
-            >
-                {label}
-            </Text>
+            {label && (
+                <Text
+                    style={{
+                        fontSize: 14,
+                        color
+                    }}
+                >
+                    {label}
+                </Text>
+            )}
         </Pressable>
     )
 }
