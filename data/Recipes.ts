@@ -269,6 +269,32 @@ export const recipes: Recipe[] = [
         imagePath: "",
         createdAt: new Date(),
         updatedAt: new Date(),
+    },
+    {
+        id: 4,
+        dishName: "Sarmale",
+        cuisines: [{id: 4, name: "Romanian"}],
+        spiceLevel: 2,
+        cookingTimeMinutes: 90,
+        ingredients: [],
+        instructions: [],
+        servings: 1,
+        imagePath: "",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        id: 5,
+        dishName: "Ceviche",
+        cuisines: [{id: 5, name: "Mediterranean"}],
+        spiceLevel: 2,
+        cookingTimeMinutes: 90,
+        ingredients: [],
+        instructions: [],
+        servings: 1,
+        imagePath: "",
+        createdAt: new Date(),
+        updatedAt: new Date(),
     }
 ];
 
